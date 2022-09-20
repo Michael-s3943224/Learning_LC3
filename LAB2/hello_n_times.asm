@@ -1,0 +1,14 @@
+.ORIG	x3000
+AND R1, R1, #0
+ADD R1, R1, #5
+
+LEA R0, HW
+
+LOOP
+PUTS 
+ADD R1, R1, #-1
+BRp LOOP
+
+HALT
+HW .STRINGZ "Hello World!\n"
+.END

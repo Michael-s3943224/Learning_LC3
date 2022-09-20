@@ -1,0 +1,48 @@
+.ORIG x3000
+    LDI R0, X_ADDRESS
+    BRn NEGATIVE_X
+        JSR X_MAG_FINISH
+    NEGATIVE_X
+        NOT R0, R0
+        ADD R0, R0, #1
+    X_MAG_FINISH
+
+    LDI R1, Y_ADDRESS
+    BRn NEGATIVE_Y
+        JSR Y_MAG_FINISH
+    NEGATIVE_Y
+        NOT R1, R1
+        ADD R1, R1, #1
+    Y_MAG_FINISH
+
+    ADD R2, R1, #0
+
+    NOT R2, R2
+    ADD R2, R2, #1
+
+    ADD R3, R0, R2
+
+    BRp X_LARGER
+    BRn Y_LARGER
+    BRz SAME
+
+    X_LARGER
+        AND R4, R4, #0
+        ADD R4, R4, #1
+        JSR COMPARE_FINISH
+    Y_LARGER
+        AND R4, R4, #0
+        ADD R4, R4, #2
+        JSR COMPARE_FINISH
+    SAME
+        AND R4, R4, #0
+        JSR COMPARE_FINISH
+        
+    COMPARE_FINISH
+    STI R4, RESULT_ADDRESS
+    HALT
+
+    X_ADDRESS .FILL x3100
+    Y_ADDRESS .FILL x3101
+    RESULT_ADDRESS .FILL x3102
+.END
